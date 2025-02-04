@@ -1,74 +1,75 @@
-# Student Mark Management System
-
+# Input number of student
 def input_number_of_students():
-    return int(input("Enter number of students: "))
+    return int(input("Enter number of students in a class: "))
 
+#Input student information
 def input_student_info():
     student_id = input("Enter student ID: ")
-    name = input("Enter student name: ")
-    dob = input("Enter student DoB (YYYY-MM-DD): ")
-    return (student_id, name, dob)
+    student_name = input("Enter student name: ")
+    student_dob = input("Enter student DoB (YYYY-MM-DD): ")
+    return (student_id, student_name, student_dob)
 
+# Input number of courses
 def input_number_of_courses():
     return int(input("Enter number of courses: "))
 
+# Input course information
 def input_course_info():
     course_id = input("Enter course ID: ")
-    name = input("Enter course name: ")
-    return (course_id, name)
+    course_name = input("Enter course name: ")
+    return (course_id, course_name)
 
+# Select a course, input  marks for student in this course
 def input_course_marks(students, course_id):
     marks = {}
-    print(f"Entering marks for course: {course_id}")
+    print("Entering marks for course " + course_id + ": ")
     for student_id, student_info in students.items():
-        mark = float(input(f"Enter mark for {student_info['name']} (ID: {student_id}): "))
+        mark = float(input("Enter mark for " + student_info["name"] + " (ID: " + student_id + "): "))
         marks[student_id] = mark
     return marks
 
+# list students
 def list_students(students):
-    print("\nList of students:")
-    for student_id, info in students.items():
-        print(f"ID: {student_id}, Name: {info['name']}, DoB: {info['dob']}")
+    print("List of students: ")
+    for student_id, student_info in students.items():
+        print("ID: " + student_id + ", Name: " + student_info["name"] + ", DoB: " + student_info["dob"])
 
+# list course
 def list_courses(courses):
-    print("\nList of courses:")
-    for course_id, name in courses.items():
-        print(f"ID: {course_id}, Name: {name}")
+    print("List of courses: ")
+    for course_id, course_name in courses.items():
+        print("ID: " + course_id + ", Name: " + course_name)
 
+# show mark of students in course
 def show_marks_for_course(course_id, marks, students):
-    print(f"\nMarks for course {course_id}:")
+    print("Marks for course" + course_id)
     if course_id not in marks:
-        print("No marks available for this course.")
+        print("No marks")
         return
-    for student_id, mark in marks[course_id].items():
-        student_name = students[student_id]['name']
-        print(f"{student_name} (ID: {student_id}): {mark}")
+    for student_id, student_mark in marks[course_id].items():
+        student_name = students[student_id]["name"]
+        print(student_name + " (ID: " + student_id + "): " + mark)
 
-# Main program
 def main():
     students = {}
     courses = {}
     marks = {}
 
-    # Input number of students and their details
-    num_students = input_number_of_students()
-    for _ in range(num_students):
-        student_id, name, dob = input_student_info()
-        students[student_id] = {'name': name, 'dob': dob}
+    number_of_students = input_number_of_students()
+    for _ in range(number_of_students):
+        student_id, student_name, student_dob = input_student_info()
+        students[student_id] = {"name": student_name, "dob": student_dob} 
+    
+    number_of_courses = input_number_of_courses()
+    for _ in range(number_of_courses):
+        course_id, course_name = input_course_info()
+        courses[course_id] = course_name
 
-    # Input number of courses and their details
-    num_courses = input_number_of_courses()
-    for _ in range(num_courses):
-        course_id, name = input_course_info()
-        courses[course_id] = name
-
-    # Input marks for courses
     for course_id in courses:
         marks[course_id] = input_course_marks(students, course_id)
 
-    # Listing options
+    # Options for systems
     while True:
-        print("\nOptions:")
         print("1. List students")
         print("2. List courses")
         print("3. Show marks for a course")
@@ -85,4 +86,8 @@ def main():
         elif choice == 4:
             break
         else:
-            print("Invalid choice. Try again.")
+            print("Wrong, try again.")
+
+# Call main function
+if __name__ == "__main__":
+    main()
